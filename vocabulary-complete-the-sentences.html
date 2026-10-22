@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit 2 Vocabulary: Complete the Sentences</title>
+<style>
+:root{--ink:#22263a;--c1:#e08a1e;--c2:#ffe5bd;--ok:#1fa85a;--bad:#e0453a}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Trebuchet MS","Segoe UI",Arial,sans-serif;color:var(--ink);background:linear-gradient(170deg,#fff0d4 0%,#e3f3ff 100%);min-height:100vh}
+.wrap{max-width:780px;margin:0 auto;padding:14px}
+header{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.logo{font-size:1.15rem;font-weight:900;background:var(--c1);color:#fff;border-radius:40px;padding:8px 20px;border:4px solid #fff;box-shadow:0 3px 0 rgba(0,0,0,.15)}
+.stats{display:flex;gap:8px;align-items:center}
+.pill{background:#fff;border:3px solid var(--c2);border-radius:30px;padding:6px 14px;font-weight:800}
+button{font-family:inherit;cursor:pointer}
+.mute{border:3px solid var(--c2);background:#fff;border-radius:50%;width:44px;height:44px;font-size:1.3rem}
+.bar{height:14px;background:#fff;border-radius:10px;margin:12px 0;overflow:hidden;border:2px solid var(--c2)}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--c1),#ffc83d);transition:width .5s}
+.card{background:#fffdf7;border:4px solid var(--c1);border-radius:26px;padding:20px;margin:12px 0;box-shadow:0 6px 0 rgba(34,38,58,.13)}
+h1,h2{margin:.2em 0}
+.tag{display:inline-block;background:var(--c2);border-radius:12px;padding:4px 12px;font-weight:800}
+.tc{text-align:center}
+.big{font-size:3.2rem;text-align:center;margin:4px 0}
+.sent{font-size:1.55rem;font-weight:900;text-align:center;line-height:1.45;margin:8px 0}
+.gap{display:inline-block;min-width:90px;border-bottom:4px solid #ffc83d;color:var(--c1)}
+.passage{background:#fff;border:3px dashed var(--c1);border-radius:18px;padding:14px 16px;font-size:1.2rem;line-height:1.9;font-weight:600}
+.gp{font-weight:900;color:var(--ok)}
+.gp.now{color:var(--c1);background:#fff3c4;border-radius:8px;padding:2px 6px;animation:bl 1s infinite alternate}
+@keyframes bl{to{background:#ffe08a}}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-top:14px}
+.opt{background:#fff;border:4px solid var(--c2);border-radius:16px;padding:13px;font-size:1.25rem;font-weight:800;color:var(--ink)}
+.opt:hover:not(:disabled){transform:translateY(-2px);border-color:var(--c1)}
+.opt.right{background:#c9f3d8;border-color:var(--ok)}
+.opt.wrong{background:#ffd5d0;border-color:var(--bad);text-decoration:line-through}
+.btn{background:var(--c1);color:#fff;border:0;border-bottom:5px solid rgba(0,0,0,.28);border-radius:16px;padding:12px 26px;font-size:1.15rem;font-weight:900;margin:10px 6px 0 0}
+.btn.o{background:#ffc83d;color:var(--ink)}
+.btn:active{transform:translateY(3px)}
+input[type=text]{width:100%;font:inherit;font-size:1.5rem;text-align:center;padding:10px;border:4px solid var(--c2);border-radius:16px;color:var(--ink);background:#fff}
+input:focus,button:focus-visible{outline:4px solid #ffc83d}
+.fb{min-height:30px;text-align:center;font-weight:900;font-size:1.1rem;margin-top:10px}
+.fb.ok{color:var(--ok)}.fb.no{color:var(--bad)}
+.shake{animation:sh .4s}
+@keyframes sh{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.pop{animation:pp .5s}
+@keyframes pp{50%{transform:scale(1.04)}}
+.stars{font-size:3rem;text-align:center}
+.meter{display:flex;gap:6px;flex-wrap:wrap}
+.meter span{flex:1;min-width:120px;text-align:center;border-radius:12px;padding:8px 4px;font-weight:900;color:#fff}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.chip{background:#fff;border:3px solid var(--c2);border-radius:16px;padding:8px 12px;font-weight:700;font-size:1.05rem;color:var(--ink)}
+.rev{margin:6px 0;padding:8px 12px;border-radius:12px;background:#fff0ec;border-left:6px solid var(--bad);text-align:left}
+.fall{position:fixed;top:-40px;font-size:2rem;pointer-events:none;animation:fl 2.8s linear forwards;z-index:9}
+@keyframes fl{to{transform:translateY(110vh) rotate(360deg)}}
+footer{text-align:center;font-weight:800;margin:18px 0 6px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style></head>
+<body><div class="wrap">
+<header><div class="logo">📚 Unit 2 · Vocabulary</div>
+<div class="stats"><span class="pill">⭐ <span id="sc">0</span></span><span class="pill">🔥 <span id="st">0</span></span><button class="mute" id="mu" aria-label="Sound on or off">🔊</button></div></header>
+<div class="bar"><i id="pg"></i></div>
+<main id="app"></main>
+<footer>Created by T.Badria Alfalahi ✨</footer></div>
+<script>
+const C={"mode": "bank", "label": "Complete the sentence using a word from the box", "emoji": "📚", "h1": "Complete the Sentences", "intro": "Use the words in the box. Use each word only once!", "rules": false, "bank": ["whiskers", "flippers", "beak", "scales", "paws", "antennae", "horns", "tongue", "claws", "hump", "fin", "spines"], "items": [{"s": "A bird uses its ___ to pick up and eat food.", "a": ["beak"], "e": "🐦", "h": "It is the hard, pointed part of a bird’s mouth."}, {"s": "A snake moves its ___ in and out to smell the air.", "a": ["tongue"], "e": "🐍", "h": "It is inside your mouth too."}, {"s": "A camel stores fat in its ___.", "a": ["hump"], "e": "🐪", "h": "It is the big lump on a camel’s back."}, {"s": "A cat uses its ___ to feel objects around its face.", "a": ["whiskers"], "e": "🐱", "h": "They are long, stiff hairs on a cat’s face."}, {"s": "Insects use their ___ to smell and touch things.", "a": ["antennae"], "e": "🦗", "h": "They are two long feelers on an insect’s head."}, {"s": "A hedgehog has sharp ___ to protect its body.", "a": ["spines"], "e": "🦔", "h": "They are sharp points on a hedgehog’s back."}, {"s": "Fish and snakes have ___ covering their bodies.", "a": ["scales"], "e": "🐟", "h": "They are small, flat plates on fish and snakes."}, {"s": "You can sometimes see a shark’s ___ above the water.", "a": ["fin"], "e": "🦈", "h": "It sticks out of the water on a shark’s back."}, {"s": "Cats and dogs walk on their soft ___.", "a": ["paws"], "e": "🐶", "h": "They are the soft feet of cats and dogs."}, {"s": "Eagles use their sharp ___ to catch animals.", "a": ["claws"], "e": "🦅", "h": "They are sharp, curved nails."}, {"s": "Penguins use their ___ to move through the water.", "a": ["flippers"], "e": "🐧", "h": "They are flat limbs for swimming."}, {"s": "An Arabian oryx has two long ___ on its head.", "a": ["horns"], "e": "🦌", "h": "They are hard, curved parts on an animal’s head."}]};
+let ctx,muted=false,score=0,streak=0,best=0,idx=-1,name="",tries=0,locked=false,res=[],miss=[],used=[];
+const Q=C.items,MODE=C.mode,MAXPTS=Q.length*10;
+const $=id=>document.getElementById(id);
+function ac(){if(!ctx){try{ctx=new(window.AudioContext||window.webkitAudioContext)()}catch(e){}}if(ctx&&ctx.state==="suspended")ctx.resume();return ctx}
+function tone(f,d,type="sine",delay=0,vol=.2){if(muted)return;const c=ac();if(!c)return;const t=c.currentTime+delay,o=c.createOscillator(),g=c.createGain();o.type=type;o.frequency.setValueAtTime(f,t);g.gain.setValueAtTime(vol,t);g.gain.exponentialRampToValueAtTime(.001,t+d);o.connect(g);g.connect(c.destination);o.start(t);o.stop(t+d)}
+const sfx={click:()=>tone(660,.08,"square",0,.08),ok:()=>[523,659,784,1046].forEach((f,i)=>tone(f,.18,"triangle",i*.09,.22)),no:()=>{tone(200,.25,"sawtooth",0,.15);tone(150,.3,"sawtooth",.15,.15)},win:()=>[523,659,784,659,784,1046,1318].forEach((f,i)=>tone(f,.25,"triangle",i*.13,.25)),star:()=>tone(1200,.15,"sine",0,.15)};
+function speak(t){if(muted||!window.speechSynthesis)return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t.replace(/_+/g,"blank").replace(/<[^>]+>/g,""));u.lang="en-US";u.rate=.88;speechSynthesis.speak(u)}
+function confetti(n=24){const e=["🎉","⭐","🌟","✨","🐾"];for(let i=0;i<n;i++){const s=document.createElement("span");s.className="fall";s.textContent=e[i%e.length];s.style.left=Math.random()*100+"vw";s.style.animationDelay=Math.random()*.8+"s";document.body.appendChild(s);setTimeout(()=>s.remove(),3800)}}
+$("mu").onclick=()=>{muted=!muted;$("mu").textContent=muted?"🔇":"🔊";if(muted&&window.speechSynthesis)speechSynthesis.cancel();else sfx.click()};
+const norm=s=>s.toLowerCase().replace(/[’‘`]/g,"'").trim();
+function hud(){$("sc").textContent=score;$("st").textContent=streak;$("pg").style.width=Math.max(0,idx)/Q.length*100+"%"}
+function start(){
+ $("app").innerHTML=`<div class="card tc pop"><div class="big">${C.emoji}</div><h1>${C.h1}</h1><p>${C.intro}</p>
+ <p><input type="text" id="nm" maxlength="20" placeholder="Type your name" aria-label="Your name" autocomplete="off"></p><button class="btn" onclick="go()">Start</button></div>`;hud()
+}
+function go(){ac();name=($("nm").value||"Explorer").trim();sfx.click();speak("Hello "+name+"!");C.rules?learn():next()}
+function say(t){sfx.click();speak(t)}
+function learn(){
+ idx=-1;hud();
+ $("app").innerHTML=`<div class="card pop"><h2>Hello, ${name}! 👋</h2><p>Remember the rules. Tap a sentence to hear it.</p>
+ <div class="meter"><span style="background:#d8402f">can’t = sure no</span><span style="background:#e8962c">might / may / could = maybe</span><span style="background:#2f6b3c">must = sure yes</span></div>
+ <div class="chips"><button class="chip" onclick="say('It might be a bird.')">🐦 It might be a bird.</button><button class="chip" onclick="say('It has wings. It must be a bird.')">🦅 It must be a bird.</button><button class="chip" onclick="say('It has no wings. It can not be a bird.')">🐟 It can’t be a bird.</button></div>
+ <p>✨ After might, may, could, must and can’t, use the <b>base verb</b>: be, have.</p>
+ <p>🔤 Use <b>be</b> for what something is or feels (a fox, scared). Use <b>have</b> for parts (claws, paws, fins).</p></div>
+ <div class="tc"><button class="btn o" onclick="next()">I’m ready! 🚀</button></div>`
+}
+function next(){idx++;tries=0;locked=false;sfx.click();hud();if(idx>=Q.length)return end();render()}
+function passage(fill){return C.text.replace(/\{(\d+)\}/g,(m,n)=>{const j=n-1;return (j<idx||(j===idx&&fill))?`<span class="gp">${Q[j].a[0]}</span>`:j===idx?`<span class="gp now">(${n}) ______</span>`:`(${n}) ______`})}
+function sentH(q){return q.s.replace(/_+/,'<span class="gap" id="gap">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>')}
+function render(){
+ const q=Q[idx];
+ let h=`<div class="card pop"><span class="tag">${C.label}</span> <span style="float:right;font-weight:800">${idx+1} / ${Q.length}</span>`;
+ if(MODE==="cloze")h+=`<div class="big">${C.emoji}</div><div class="passage" id="ps">${passage(false)}</div>`;
+ else h+=`<div class="big">${q.e||C.emoji}</div><div class="sent">${sentH(q)}</div>`;
+ if(MODE==="type")h+=`<p><input type="text" id="an" placeholder="be or have" autocomplete="off" autocapitalize="none" spellcheck="false" aria-label="Answer"></p><div class="tc"><button class="btn" id="ck" onclick="checkT()">Check ✔</button></div>`;
+ else if(MODE==="bank")h+=`<p class="tc"><b>Word bank</b> (use each word once)</p><div class="opts">${C.bank.map(w=>`<button class="opt" ${used.includes(w)?"disabled style='opacity:.3;text-decoration:line-through'":""} onclick="pick(this,'${w}')">${w}</button>`).join("")}</div>`;
+ else h+=`<div class="opts">${q.o.map((x,i)=>`<button class="opt" onclick="pick(this,'${x}')">${"abc"[i]}) ${x}</button>`).join("")}</div>`;
+ h+=`<div class="fb" id="fb" aria-live="polite"></div><div class="tc" id="nx"></div></div>`;
+ $("app").innerHTML=h;
+ if(MODE==="type"){$("an").focus();$("an").addEventListener("keydown",e=>{if(e.key==="Enter")checkT()})}
+ speak(MODE==="cloze"?C.text.replace(/\{(\d+)\}/g,(m,n)=>+n<idx+1?Q[n-1].a[0]:"blank"):q.s)
+}
+function full(q){return MODE==="cloze"?"":q.s.replace(/_+/,q.a[0])}
+function nextBtn(){$("nx").innerHTML=`<button class="btn o" onclick="next()">${idx===Q.length-1?"See my result 🏆":"Next ➜"}</button>`;if($("ck"))$("ck").style.display="none"}
+function good(pts,msg){
+ locked=true;score+=pts;streak++;best=Math.max(best,streak);res[idx]=1;hud();sfx.ok();
+ const q=Q[idx];if($("gap"))$("gap").textContent=q.a[0];if(MODE==="cloze")$("ps").innerHTML=passage(true);
+ const f=$("fb");f.className="fb ok";f.textContent=msg+" +"+pts;
+ if(streak%3===0){setTimeout(()=>{sfx.star();confetti(14)},350);f.textContent+="  🔥 "+streak+" in a row!"}
+ if(MODE!=="cloze")speak(full(q));nextBtn()
+}
+function shake(){streak=0;hud();sfx.no();const c=$("app").firstElementChild;c.classList.remove("shake");void c.offsetWidth;c.classList.add("shake")}
+function give(){
+ const q=Q[idx];locked=true;res[idx]=0;hud();
+ if(MODE==="bank")used.push(q.a[0]);if($("gap"))$("gap").textContent=q.a[0];if(MODE==="cloze")$("ps").innerHTML=passage(true);
+ miss.push(MODE==="cloze"?`Gap ${idx+1}: <b>${q.a[0]}</b>`:`${idx+1}. ${full(q)}`.replace(q.a[0],`<b>${q.a[0]}</b>`));
+ const f=$("fb");f.className="fb no";f.innerHTML=`The answer is: <b>${q.a[0]}</b>`;nextBtn()
+}
+function pick(b,v){
+ if(locked)return;const q=Q[idx];
+ if(q.a.map(norm).includes(norm(v))){b.classList.add("right");if(MODE==="bank")used.push(v);good(tries===0?10:5,tries===0?"Perfect! 🎉":"Good job! 👍");return}
+ b.classList.add("wrong");b.disabled=true;tries++;shake();
+ if(tries>=2){document.querySelectorAll(".opt").forEach(x=>{if(q.a.map(norm).some(a=>norm(x.textContent).endsWith(a))&&!x.disabled)x.classList.add("right")});give();return}
+ const f=$("fb");f.className="fb no";f.textContent="Not yet. Hint: "+q.h
+}
+function checkT(){
+ if(locked)return;const q=Q[idx],v=norm($("an").value);if(!v){$("an").focus();return}
+ if(q.a.map(norm).includes(v)){good(tries===0?10:5,tries===0?"Perfect! 🎉":"Good job! 👍");return}
+ tries++;shake();if(tries>=2)return give();
+ const f=$("fb");f.className="fb no";f.textContent="Not yet. Hint: "+q.h;$("an").select()
+}
+function end(){
+ hud();$("pg").style.width="100%";const pc=Math.round(score/MAXPTS*100),st=pc>=85?3:pc>=60?2:pc>=30?1:0,right=res.filter(x=>x===1).length;
+ const msg=["Keep practising. You can do it! 💪","Good start! Try again for more stars.","Great work! Almost perfect!","Amazing! You are a grammar star!"][st];
+ sfx.win();confetti(40);speak("Well done "+name+"! Your score is "+score+" out of "+MAXPTS);
+ const story=MODE==="cloze"?`<div class="passage" style="text-align:left;margin:10px 0">${passage(true)}</div><button class="btn" onclick="speak(C.text.replace(/\\{(\\d+)\\}/g,(m,n)=>Q[n-1].a[0]))">🔊 Read the story</button>`:"";
+ $("app").innerHTML=`<div class="card tc pop"><h1>Well done, ${name}! 🏆</h1><div class="stars">${"⭐".repeat(st)}${"☆".repeat(3-st)}</div>
+ <h2>${score} / ${MAXPTS} points (${pc}%)</h2><p>Correct: <b>${right}</b> / ${Q.length} · Best streak: <b>🔥 ${best}</b></p><p>${msg}</p>${story}
+ ${miss.length?`<p><b>Review:</b></p>${miss.map(m=>`<div class="rev">${m}</div>`).join("")}`:""}
+ <div><button class="btn o" onclick="again()">Play again 🔄</button>${C.rules?`<button class="btn" onclick="learn()">Review rules 📘</button>`:""}</div></div>`
+}
+function again(){score=0;streak=0;best=0;idx=-1;res=[];miss=[];used=[];sfx.click();start()}
+start();
+</script></body></html>
